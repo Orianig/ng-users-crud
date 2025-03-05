@@ -1,1 +1,10 @@
-<p>navigation works!</p>
+@if (isUserLoggedIn) {
+<a mat-list-item routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+  <mat-icon>house</mat-icon>
+  <span>Dashboard</span>
+</a>
+<a mat-list-item routerLink="/users" routerLinkActive="active">
+  <mat-icon>person</mat-icon>
+  <span>Usuarios</span>
+</a>
+}
