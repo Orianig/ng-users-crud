@@ -1,0 +1,11 @@
+.footer {
+  align-items: center;
+  background-color: #ddd;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  .business-info {
+    align-items: center;
+    display: flex;
+  }
+}

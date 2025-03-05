@@ -1,1 +1,27 @@
-<router-outlet />
+<div class="app">
+  <app-header>
+    <button mat-icon-button color="accent" aria-label="Example icon button with a menu icon"
+      (click)="navigation.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>Brandname</span>
+  </app-header>
+
+  <mat-drawer-container class="example-container" autosize>
+    <mat-drawer #navigation class="example-sidenav" mode="side" opened>
+      <app-navigation></app-navigation>
+      <p>Auto-resizing sidenav</p>
+      @if (showFiller()) {
+        <p>Signal test</p>
+      }
+      <button (click)="toggleFiller()" mat-raised-button>
+        Add text
+      </button>
+    </mat-drawer>
+
+    <div class="example-sidenav-content">
+      <router-outlet></router-outlet>
+      <app-footer></app-footer>
+    </div>
+  </mat-drawer-container>
+</div>
