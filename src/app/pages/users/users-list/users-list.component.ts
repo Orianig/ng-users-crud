@@ -8,6 +8,7 @@ import {
 } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { User } from '../../../core/models/user.model';
+import { UsersService } from '../../../core/services/users.service';
 
 @Component({
   selector: 'app-users-list',
@@ -20,7 +21,9 @@ import { User } from '../../../core/models/user.model';
 })
 export class UsersListComponent {
 
-  displayedColumns = ['jobTitle', 'userName', 'fullName', 'email'];
+  private usersService = inject(UsersService);
+
+  displayedColumns = ['avatar', 'first_name', 'last_name', 'email'];
   dataSource: MatTableDataSource<User>;
   sourceUser: User | null = null;
   loadingIndicator = false;
@@ -35,6 +38,23 @@ export class UsersListComponent {
       this.displayedColumns.push('actions');
     }
     this.dataSource = new MatTableDataSource();
+  }
+
+  ngOnInit() {
+    this.loadUsers();
+  }
+
+  loadUsers() {
+    this.loadingIndicator = true;
+    this.usersService.getUsers().subscribe(response => {
+      this.dataSource.data = response.data;
+      this.loadingIndicator = false;
+
+      setTimeout(() => {
+        this.dataSource.paginator = this.paginator();
+        this.dataSource.sort = this.sort();
+      });
+    });
   }
 
   public applyFilter(filterValue: string) {

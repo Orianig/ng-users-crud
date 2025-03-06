@@ -1,23 +1,15 @@
-export class User {
-  constructor(
-    public id = '',
-    public userName = '',
-    public fullName = '',
-    public email = '',
-    public jobTitle = '',
-    public phoneNumber = '',
-  ) {
-  }
+export interface User {
+  id?: number;
+  email: string;
+  first_name: string;
+  last_name: string;
+  avatar?: string;
+}
 
-  get friendlyName() {
-    let name = this.fullName || this.userName;
-
-    if (this.jobTitle) {
-      name = this.jobTitle + ' ' + name;
-    }
-
-    return name;
-  }
-
-  public isEnabled = true;
+export interface UserResponse {
+  page: number;
+  per_page: number;
+  total: number;
+  total_pages: number;
+  data: User[]; // Lista de usuarios
 }

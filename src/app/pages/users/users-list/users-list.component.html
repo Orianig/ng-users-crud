@@ -13,40 +13,45 @@
     }
     <mat-table [dataSource]="dataSource" matSort>
 
-      <ng-container matColumnDef="jobTitle">
-        <mat-header-cell class="flex-grow15" *matHeaderCellDef mat-sort-header>
-          Título
-        </mat-header-cell>
-        <mat-cell class="flex-grow15" *matCellDef="let row"> {{row.jobTitle}} </mat-cell>
+      <!-- Avatar -->
+      <ng-container matColumnDef="avatar">
+        <mat-header-cell class="flex-grow10" *matHeaderCellDef> Foto </mat-header-cell>
+        <mat-cell class="flex-grow10" *matCellDef="let user">
+          <img [src]="user.avatar" alt="Avatar" class="user-avatar">
+        </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="userName">
+      <!-- Nombre -->
+      <ng-container matColumnDef="first_name">
         <mat-header-cell class="flex-grow25" *matHeaderCellDef mat-sort-header>
-          Nombre de usuario
+          Nombre
         </mat-header-cell>
-        <mat-cell class="flex-grow25" *matCellDef="let row"> {{row.userName}} </mat-cell>
+        <mat-cell class="flex-grow25" *matCellDef="let user"> {{user.first_name}} </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="fullName">
-        <mat-header-cell class="flex-grow40" *matHeaderCellDef mat-sort-header>
-          Nombre completo
+      <!-- Apellido -->
+      <ng-container matColumnDef="last_name">
+        <mat-header-cell class="flex-grow25" *matHeaderCellDef mat-sort-header>
+          Apellido
         </mat-header-cell>
-        <mat-cell class="flex-grow40" *matCellDef="let row"> {{row.fullName}} </mat-cell>
+        <mat-cell class="flex-grow25" *matCellDef="let user"> {{user.last_name}} </mat-cell>
       </ng-container>
 
+      <!-- Email -->
       <ng-container matColumnDef="email">
         <mat-header-cell class="flex-grow40" *matHeaderCellDef mat-sort-header>
           Email
         </mat-header-cell>
-        <mat-cell class="flex-grow40" *matCellDef="let row"> {{row.email}} </mat-cell>
+        <mat-cell class="flex-grow40" *matCellDef="let user"> {{user.email}} </mat-cell>
       </ng-container>
 
+      <!-- Acciones -->
       @if (canManageUsers() ) {
         <ng-container matColumnDef="actions">
           <mat-header-cell *matHeaderCellDef class="flex-170px justify-center">
-              <button mat-button color="primary" matTooltip="Nuevo usuario" (click)="editUser()">
-                <mat-icon>person_add</mat-icon>Añadir usuario
-              </button>
+            <button mat-button color="primary" matTooltip="Nuevo usuario" (click)="editUser()">
+              <mat-icon>person_add</mat-icon>Añadir usuario
+            </button>
           </mat-header-cell>
           <mat-cell *matCellDef="let user" class="flex-170px justify-center">
             <button mat-icon-button matTooltip="Editar" (click)="editUser(user)">
@@ -60,8 +65,7 @@
       }
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;">
-      </mat-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
 
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
