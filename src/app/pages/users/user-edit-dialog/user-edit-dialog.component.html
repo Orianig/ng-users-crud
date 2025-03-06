@@ -1,0 +1,49 @@
+<h1 mat-dialog-title>Usuario</h1>
+<div mat-dialog-content>
+  <form [formGroup]="userForm" (ngSubmit)="onSaveUser()" class="flex-col gap-1em" autocomplete="off">
+
+    <mat-form-field>
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="first_name" />
+      @if (userForm.controls.first_name.hasError('required')) {
+      <mat-error>Campo requerido</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Apellido</mat-label>
+      <input matInput formControlName="last_name" />
+      @if (userForm.controls.last_name.hasError('required')) {
+      <mat-error>Campo requerido</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" type="email" />
+      @if (userForm.controls.email.hasError('required')) {
+      <mat-error>El email es obligatorio</mat-error>
+      }
+      @if (userForm.controls.email.hasError('email')) {
+      <mat-error>Formato de email inválido</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Avatar (URL)</mat-label>
+      <input matInput formControlName="avatar" />
+    </mat-form-field>
+
+
+    @if (userForm.controls.avatar.value) {
+      <img [src]="userForm.controls.avatar.value" alt="Avatar Preview" class="w-16 h-16 rounded-full object-cover" />
+    } @else {
+      <span>No hay foto</span>
+    }
+
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="onSaveUser()" color="primary">Guardar</button>
+  <button mat-raised-button (click)="cancel()" color="warn">Cancelar</button>
+</div>

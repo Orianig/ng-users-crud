@@ -9,6 +9,8 @@ import {
 import { MatPaginator } from '@angular/material/paginator';
 import { User } from '../../../core/models/user.model';
 import { UsersService } from '../../../core/services/users.service';
+import { MatDialog } from '@angular/material/dialog';
+import { UserEditDialogComponent } from '../user-edit-dialog/user-edit-dialog.component';
 
 @Component({
   selector: 'app-users-list',
@@ -22,6 +24,7 @@ import { UsersService } from '../../../core/services/users.service';
 export class UsersListComponent {
 
   private usersService = inject(UsersService);
+  dialog = inject(MatDialog);
 
   displayedColumns = ['avatar', 'first_name', 'last_name', 'email'];
   dataSource: MatTableDataSource<User>;
@@ -66,7 +69,29 @@ export class UsersListComponent {
   }
 
   editUser(user?: User) {
-    console.log(user);
+    this.sourceUser = user ?? null;
+    const dialogRef = this.dialog.open(UserEditDialogComponent,
+      {
+        panelClass: 'mat-dialog-sm',
+        data: { user }
+      });
+    dialogRef.afterClosed().subscribe(user => {
+      if (user) {
+        this.updateUser(user);
+      }
+    });
+  }
+
+  updateUser(user: User) {
+    if (this.sourceUser) {
+      Object.assign(this.sourceUser, user);
+      // this.alertService.showMessage('Success', `Changes to user "${user.userName}" was saved successfully`, MessageSeverity.success);
+      this.sourceUser = null;
+    } else {
+      this.dataSource.data.push(user);
+      this.refresh();
+      // this.alertService.showMessage('Success', `User "${user.userName}" was created successfully`, MessageSeverity.success);
+    }
   }
 
   confirmDelete(user: User) {
