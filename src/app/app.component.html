@@ -9,7 +9,7 @@
     </div>
   </app-header>
 
-  <mat-sidenav-container class="app-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+  <mat-sidenav-container class="app-sidenav-container">
     <mat-sidenav #mainNav class="app-sidenav-nav" [mode]="mobileQuery.matches ? 'over' : 'side'"
                  [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" [opened]="!mobileQuery.matches">
       <app-navigation></app-navigation>

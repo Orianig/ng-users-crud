@@ -11,5 +11,5 @@ export interface UserResponse {
   per_page: number;
   total: number;
   total_pages: number;
-  data: User[]; // Lista de usuarios
+  data: User[];
 }
