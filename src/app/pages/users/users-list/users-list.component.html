@@ -15,9 +15,13 @@
 
       <!-- Avatar -->
       <ng-container matColumnDef="avatar">
-        <mat-header-cell class="flex-grow10" *matHeaderCellDef> Foto </mat-header-cell>
-        <mat-cell class="flex-grow10" *matCellDef="let user">
-          <img [src]="user.avatar" alt="Avatar" class="user-avatar">
+        <mat-header-cell class="flex-grow15" *matHeaderCellDef> Foto </mat-header-cell>
+        <mat-cell class="flex-grow15" *matCellDef="let user">
+          @if (user.avatar) {
+            <img [src]="user.avatar" alt="Avatar" class="user-avatar">
+          } @else {
+            <span>No hay foto</span>
+          }
         </mat-cell>
       </ng-container>
 
