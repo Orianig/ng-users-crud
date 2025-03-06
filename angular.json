@@ -32,8 +32,31 @@
               }
             ],
             "styles": [
-              "src/assets/css/styles.scss"
+              {
+                "input": "src/styles.scss"
+              },
+              {
+                "input": "src/themes/rose-red.scss",
+                "inject": false
+              },
+              {
+                "input": "src/themes/azure-blue.scss",
+                "inject": false
+              },
+              {
+                "input": "src/themes/magenta-violet.scss",
+                "inject": false
+              },
+              {
+                "input": "src/themes/cyan-orange.scss",
+                "inject": false
+              }
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/styles"
+              ]
+            },
             "scripts": []
           },
           "configurations": {
@@ -91,8 +114,31 @@
               }
             ],
             "styles": [
-              "src/assets/css/styles.scss"
+              {
+                "input": "src/styles.scss"
+              },
+              {
+                "input": "src/themes/rose-red.scss",
+                "inject": false
+              },
+              {
+                "input": "src/themes/azure-blue.scss",
+                "inject": false
+              },
+              {
+                "input": "src/themes/magenta-violet.scss",
+                "inject": false
+              },
+              {
+                "input": "src/themes/cyan-orange.scss",
+                "inject": false
+              }
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/styles"
+              ]
+            },
             "scripts": []
           }
         }

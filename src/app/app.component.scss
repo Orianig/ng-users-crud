@@ -1,20 +1,95 @@
-.app {
-  bottom: 0;
+@use 'breakpoints';
+
+.nav-container {
   display: flex;
   flex-direction: column;
-  left: 0;
   position: absolute;
-  right: 0;
   top: 0;
-  .example-container {
-    flex: 1 1 auto;
-    .example-sidenav {
-      padding: 20px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.app-toolbar {
+  height: 56px;
+
+  .toolbar-button {
+    font-size: 17px;
+    letter-spacing: normal;
+    color: inherit;
+  }
+
+  .mat-mdc-icon-button:first-child {
+    margin-left: -4px;
+    margin-right: -4px;
+  }
+
+  .mat-mdc-button {
+    min-width: 46px;
+    padding: 0 12px;
+
+    & > .mat-icon {
+      height: 24px;
+      width: 24px;
+      font-size: 24px;
+      margin-right: 2px;
+
+      @include breakpoints.breakpoint('lt-sm') {
+        margin-right: 0;
+      }
     }
-    .example-sidenav-content {
-      display: flex column;
-      align-items: center;
-      justify-content: center;
-    }
+  }
+  /*  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
+  z-index: 2*/
+}
+
+.is-mobile .app-toolbar {
+  position: fixed;
+  z-index: 2;
+}
+
+h1.app-name {
+  margin-left: 8px;
+  margin-bottom: 0;
+  font-weight: 500;
+}
+
+h1.app-name > a {
+  color: inherit;
+  cursor: default;
+  text-decoration: inherit;
+}
+
+
+.app-sidenav-container {
+  /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+     causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+  flex: 1;
+}
+
+.is-mobile .app-sidenav-container {
+  /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
+     `<body>` to be our scrolling element for mobile layouts. */
+  flex: 1 0 auto;
+}
+
+.app-sidenav-nav {
+  .mat-mdc-list-item {
+    padding-left: 16px;
+  }
+
+  .mat-icon {
+    margin-left: 8px;
+    margin-right: 16px;
+  }
+
+  .mat-expansion-panel-header {
+    padding-left: 16px;
+  }
+
+  .mat-expansion-panel-header-title {
+    font-size: initial;
+    font-weight: initial;
+    line-height: 24px;
   }
 }

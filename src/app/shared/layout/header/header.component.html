@@ -1,6 +1,7 @@
-<mat-toolbar>
+<mat-toolbar ngPreserveWhitespaces color="primary" class="app-toolbar">
   <ng-content #businessLogo></ng-content>
-  <span class="example-spacer"></span>
-  <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon">favorite</mat-icon>
-  <mat-icon class="example-icon" aria-hidden="false" aria-label="Example delete icon">delete</mat-icon>
+  <div class="flex gap-2">
+    <mat-icon aria-hidden="false" aria-label="Example heart icon">favorite</mat-icon>
+    <mat-icon aria-hidden="false" aria-label="Example more vertical">more_vert</mat-icon>
+  </div>
 </mat-toolbar>

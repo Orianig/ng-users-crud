@@ -1,10 +1,15 @@
 @if (isUserLoggedIn) {
-<a mat-list-item routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-  <mat-icon>house</mat-icon>
-  <span>Dashboard</span>
-</a>
-<a mat-list-item routerLink="/users" routerLinkActive="active">
-  <mat-icon>person</mat-icon>
-  <span>Usuarios</span>
-</a>
+  <mat-nav-list>
+    <a mat-list-item routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" routerLink="">
+      <mat-icon matListItemIcon>dashboard</mat-icon>Home
+    </a>
+    <a mat-list-item routerLinkActive="active" routerLink="/users">
+      <mat-icon matListItemIcon>contacts</mat-icon>Usuarios
+    </a>
+  </mat-nav-list>
 }
+<mat-nav-list>
+  <a mat-list-item routerLinkActive="active" routerLink="/about">
+    <mat-icon matListItemIcon>info</mat-icon>Acerca de
+  </a>
+</mat-nav-list>

@@ -1,7 +1,37 @@
-.example-icon {
-  padding: 0 14px;
+@use 'breakpoints';
+
+.app-toolbar {
+  height: 56px;
+
+  .toolbar-button {
+    font-size: 17px;
+    letter-spacing: normal;
+    color: inherit;
+  }
+
+  .mat-mdc-icon-button:first-child {
+    margin-left: -4px;
+    margin-right: -4px;
+  }
+
+  .mat-mdc-button {
+    min-width: 46px;
+    padding: 0 12px;
+
+    & > .mat-icon {
+      height: 24px;
+      width: 24px;
+      font-size: 24px;
+      margin-right: 2px;
+
+      @include breakpoints.breakpoint('lt-sm') {
+        margin-right: 0;
+      }
+    }
+  }
 }
-/* #docregion toolbar-position-content-style */
-.example-spacer {
-  flex: 1 1 auto;
+
+.is-mobile .app-toolbar {
+  position: fixed;
+  z-index: 2;
 }

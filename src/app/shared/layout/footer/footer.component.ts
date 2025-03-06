@@ -8,5 +8,7 @@ import { MaterialModule } from '../../material.module';
   styleUrl: './footer.component.scss'
 })
 export class FooterComponent {
-
+  getYear() {
+    return new Date().getUTCFullYear();
+  }
 }
