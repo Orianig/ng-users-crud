@@ -17,6 +17,10 @@ export const USERS_ROUTES: Routes = [{
           component: UsersListComponent
       },
       {
+        path: 'edit',
+        component: UsersEditComponent
+      },
+      {
           path: 'edit/:id',
           component: UsersEditComponent
       }

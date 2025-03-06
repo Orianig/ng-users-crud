@@ -14,7 +14,7 @@ export const routes: Routes = [
   {
     path: 'users',
     loadChildren: () =>
-        import('./pages/users/users.routes')
-            .then(m => m.USERS_ROUTES)
+      import('./pages/users/users.routes')
+        .then(m => m.USERS_ROUTES)
   },
 ];
