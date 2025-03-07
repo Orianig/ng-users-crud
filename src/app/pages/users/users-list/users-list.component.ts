@@ -6,6 +6,7 @@ import {
   MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell,
   MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow
 } from '@angular/material/table';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatPaginator } from '@angular/material/paginator';
 import { User } from '../../../core/models/user.model';
 import { UsersService } from '../../../core/services/users.service';
@@ -26,6 +27,7 @@ export class UsersListComponent {
 
   private usersService = inject(UsersService);
   private alertService = inject(AlertService);
+  private snackBar = inject(MatSnackBar);
   dialog = inject(MatDialog);
 
   displayedColumns = ['avatar', 'first_name', 'last_name', 'email'];
@@ -106,6 +108,28 @@ export class UsersListComponent {
   }
 
   confirmDelete(user: User) {
-    console.log(user);
+    this.snackBar.open(`Eliminar ${user.first_name} ${user.last_name}?`, 'ELIMINAR', { duration: 5000 })
+      .onAction().subscribe(() => {
+        this.alertService.startLoadingMessage('Deleting...');
+        this.loadingIndicator = true;
+
+        const userId = user.id;
+        if (!userId) return;
+        this.usersService.deleteUser(userId)
+          .subscribe({
+            next: () => {
+              this.dataSource.data = this.dataSource.data.filter(item => item !== user);
+            },
+            error: error => {
+              this.alertService.showStickyMessage('Error borrando',
+                `Ha ocurrido un error borrando el usuario.`,
+                MessageSeverity.error);
+            },
+            complete: () => {
+              this.alertService.stopLoadingMessage();
+              this.loadingIndicator = false;
+            }
+          });
+      });
   }
 }
