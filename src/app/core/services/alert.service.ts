@@ -32,10 +32,10 @@ export class AlertService {
   }
 
   showStickyMessage(summary: string): void;
-  showStickyMessage(summary: string, detail: string | null, severity: MessageSeverity, error?: unknown): void;
-  showStickyMessage(summary: string, detail: string | null, severity: MessageSeverity, error?: unknown, onRemove?: () => void): void;
+  showStickyMessage(summary: string, detail: string | null, severity: MessageSeverity): void;
+  showStickyMessage(summary: string, detail: string | null, severity: MessageSeverity, onRemove?: () => void): void;
   showStickyMessage(summaryAndDetails: string[], summaryAndDetailsSeparator: string, severity: MessageSeverity): void;
-  showStickyMessage(data: string | string[], separatorOrDetail?: string | null, severity?: MessageSeverity, error?: unknown, onRemove?: () => void) {
+  showStickyMessage(data: string | string[], separatorOrDetail?: string | null, severity?: MessageSeverity, onRemove?: () => void) {
 
     if (!severity) {
       severity = MessageSeverity.default;
@@ -48,31 +48,6 @@ export class AlertService {
         this.showMessageHelper(msgObject.firstPart, msgObject.secondPart, severity, true);
       }
     } else {
-      if (error) {
-        const msg = `Severity: "${MessageSeverity[severity]}", Summary: "${data}", Detail: "${separatorOrDetail}", Error: "${Utilities.stringify(error)}"`;
-
-        switch (severity) {
-          case MessageSeverity.default:
-            this.logInfo(msg);
-            break;
-          case MessageSeverity.info:
-            this.logInfo(msg);
-            break;
-          case MessageSeverity.success:
-            this.logMessage(msg);
-            break;
-          case MessageSeverity.error:
-            this.logError(msg);
-            break;
-          case MessageSeverity.warn:
-            this.logWarning(msg);
-            break;
-          case MessageSeverity.wait:
-            this.logTrace(msg);
-            break;
-        }
-      }
-
       this.showMessageHelper(data, separatorOrDetail, severity, true, onRemove);
     }
   }
@@ -115,30 +90,6 @@ export class AlertService {
   showValidationError() {
     this.resetStickyMessage();
     this.showStickyMessage('Error caption', 'Error message', MessageSeverity.error);
-  }
-
-  logDebug(msg: unknown) {
-    console.debug(msg);
-  }
-
-  logError(msg: unknown) {
-    console.error(msg);
-  }
-
-  logInfo(msg: unknown) {
-    console.info(msg);
-  }
-
-  logMessage(msg: unknown) {
-    console.log(msg);
-  }
-
-  logTrace(msg: unknown) {
-    console.trace(msg);
-  }
-
-  logWarning(msg: unknown) {
-    console.warn(msg);
   }
 
   getMessageEvent(): Observable<AlertCommand> {
