@@ -53,8 +53,8 @@
       @if (canManageUsers() ) {
         <ng-container matColumnDef="actions">
           <mat-header-cell *matHeaderCellDef class="flex-170px justify-center">
-            <button mat-button color="primary" matTooltip="Nuevo usuario" (click)="editUser()">
-              <mat-icon>person_add</mat-icon>Añadir usuario
+            <button mat-flat-button color="primary" matTooltip="Nuevo usuario" (click)="editUser()">
+              <mat-icon>person_add</mat-icon>Añadir
             </button>
           </mat-header-cell>
           <mat-cell *matCellDef="let user" class="flex-170px justify-center">
