@@ -69,7 +69,7 @@ export class AlertService {
     this.messages.next({ operation: 'clear' });
   }
 
-  startLoadingMessage(message = 'Loading...', caption = '') {
+  startLoadingMessage(message = 'Cargando...', caption = '') {
     clearTimeout(this.loadingMessageTimeoutId);
 
     if (!caption) {
@@ -89,7 +89,7 @@ export class AlertService {
 
   showValidationError() {
     this.resetStickyMessage();
-    this.showStickyMessage('Error caption', 'Error message', MessageSeverity.error);
+    this.showStickyMessage('Error título', 'Error mensaje', MessageSeverity.error);
   }
 
   getMessageEvent(): Observable<AlertCommand> {

@@ -11,6 +11,7 @@ import { User } from '../../../core/models/user.model';
 import { UsersService } from '../../../core/services/users.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UserEditDialogComponent } from '../user-edit-dialog/user-edit-dialog.component';
+import { AlertService, MessageSeverity } from '../../../core/services/alert.service';
 
 @Component({
   selector: 'app-users-list',
@@ -24,6 +25,7 @@ import { UserEditDialogComponent } from '../user-edit-dialog/user-edit-dialog.co
 export class UsersListComponent {
 
   private usersService = inject(UsersService);
+  private alertService = inject(AlertService);
   dialog = inject(MatDialog);
 
   displayedColumns = ['avatar', 'first_name', 'last_name', 'email'];
@@ -31,6 +33,7 @@ export class UsersListComponent {
   sourceUser: User | null = null;
   loadingIndicator = false;
 
+  //NOTE - Simulate permission for manage users
   canManageUsers = computed(() => 1 == 1);
 
   readonly paginator = viewChild.required(MatPaginator);
@@ -48,15 +51,23 @@ export class UsersListComponent {
   }
 
   loadUsers() {
+    this.alertService.startLoadingMessage();
     this.loadingIndicator = true;
-    this.usersService.getUsers().subscribe(response => {
-      this.dataSource.data = response.data;
-      this.loadingIndicator = false;
-
-      setTimeout(() => {
-        this.dataSource.paginator = this.paginator();
-        this.dataSource.sort = this.sort();
-      });
+    this.usersService.getUsers().subscribe({
+      next: (response) => {
+        this.dataSource.data = response.data;
+        setTimeout(() => {
+          this.dataSource.paginator = this.paginator();
+          this.dataSource.sort = this.sort();
+        });
+      },
+      error: (error) => {
+        this.alertService.showMessage('Error', 'Error cargando los usuarios', MessageSeverity.error);
+      },
+      complete: () => {
+        this.loadingIndicator = false;
+        this.alertService.stopLoadingMessage();
+      }
     });
   }
 
@@ -85,12 +96,12 @@ export class UsersListComponent {
   updateUser(user: User) {
     if (this.sourceUser) {
       Object.assign(this.sourceUser, user);
-      // this.alertService.showMessage('Success', `Changes to user "${user.userName}" was saved successfully`, MessageSeverity.success);
+      this.alertService.showMessage('Éxito', `Cambios en el usuario "${user.first_name} ${user.last_name}" fueron guardados satisfactoriamente`, MessageSeverity.success);
       this.sourceUser = null;
     } else {
       this.dataSource.data.push(user);
       this.refresh();
-      // this.alertService.showMessage('Success', `User "${user.userName}" was created successfully`, MessageSeverity.success);
+      this.alertService.showMessage('Éxito', `Usuario "${user.first_name} ${user.last_name}" fue creado satisfactoriamente`, MessageSeverity.success);
     }
   }
 
