@@ -16,13 +16,10 @@ export const USERS_ROUTES: Routes = [{
           path: 'list',
           component: UsersListComponent
       },
-      {
-        path: 'edit',
-        component: UsersEditComponent
-      },
-      {
-          path: 'edit/:id',
-          component: UsersEditComponent
-      }
+      // TODO - in this project are using dialog for edit, it is an example
+      // {
+      //     path: 'edit/:id',
+      //     component: UsersEditComponent
+      // }
   ]
 }];
